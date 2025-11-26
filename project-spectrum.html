@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorentzian Spectrum Fitting</title>
+    <link rel="stylesheet" href="style.css">
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <canvas id="qft-background"></canvas>
+    <div class="container">
+        <section class="section">
+            <a href="index.html" class="inherit-link">&larr; Back to main site</a>
+            <h1>Lorentzian Spectrum Fitting</h1>
+
+            <p class="bio">
+                Physical system: data from two nearby emission lines from the same species, think a fine-structure doublet in a gas
+                cell. Finite lifetimes and the spectrometer’s slit function broaden each line into a Lorentzian, so the
+                detector sees a blended profile rather than two clean spikes.
+            </p>
+
+            <p class="bio">
+                Math: model \(S(\nu) = c_1 L(\nu;\nu_{01},\gamma_1) + c_2 L(\nu;\nu_{02},\gamma_2)\) with
+                \(L(\nu;\nu_0,\gamma) = \frac{1}{\pi}\frac{0.5\gamma}{(\nu-\nu_0)^2 + (0.5\gamma)^2}\).
+                Nonlinear least squares (SciPy) tunes amplitudes \(c_1,c_2\), line centers \(\nu_{01},\nu_{02}\), and
+                widths \(\gamma_1,\gamma_2\); the animation walks those six parameters from an initial guess to the
+                fitted values while the residuals collapse.
+            </p>
+
+            <div class="project-hero">
+                <img src="assets/spectrum_fit.gif" alt="Animated Lorentzian spectrum fitting">
+            </div>
+        </section>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

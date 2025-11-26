@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Means Cluster PCA Decomposition</title>
+    <link rel="stylesheet" href="style.css">
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <canvas id="qft-background"></canvas>
+    <div class="container">
+        <section class="section">
+            <a href="index.html" class="inherit-link">&larr; Back to main site</a>
+            <h1>K-Means Cluster PCA Decomposition</h1>
+
+            <p class="bio">
+                I used this approach during work with nVerses Capital; I can’t share the proprietary setup,
+                but the public workflow is below.
+            </p>
+
+            <p class="bio">
+                Motivation: standard K-Means gives quick centroids, but a single cluster can dominate.
+                Instead of inflating \(k\) globally, I split only the oversized cluster along the directions
+                that matter most (identified via PCA).
+            </p>
+
+            <div class="project-hero">
+                <img src="assets/cluster.gif" alt="K-Means PCA animation">
+            </div>
+
+            <p class="bio">
+                K-Means solves
+                \( \arg\min_{\{\mu_j\}} \sum_i \lVert x_i - \mu_{c(i)} \rVert_2^2 \)
+                by alternating assignment
+                \( c(i) = \arg\min_j \lVert x_i - \mu_j \rVert_2 \)
+                and centroid updates
+                \( \mu_j = \frac{1}{|C_j|}\sum_{i \in C_j} x_i \).
+                PCA identifies orthogonal directions of maximum variance. The eigenvectors of the centered
+                covariance matrix
+                \( \Sigma = \frac{1}{n-1} X^\top X \)
+                define components \(u_1, u_2, \dots\), ordered by explained variance.
+            </p>
+
+            <p class="bio">
+                Procedure in the current generator: for each 3D Gaussian dataset (150 points),
+                run K-Means with \(k=4\) and isolate the largest cluster.
+                Fit PCA on this subset and use \(u_1\) as the long axis. The split occurs at the midpoint of
+                the projection range along \(u_1\). The separating plane is orthogonal to \(u_1\) and spanned
+                by \(u_2\) and \(u_3\). The primary axis is drawn solid, the orthogonal axis dashed, and the
+                plane sits between the resulting halves.
+            </p>
+
+            <p class="bio">
+                Color and motion: the oversized cluster uses <code>x</code> markers and gradually transitions
+                into two target colors (white and a deeper accent) that pulse out of phase. Other clusters
+                retain their base colors. I’ve visualized the decomposition as clearly as possible despite
+                the difficulty of showing a split in 3D.
+            </p>
+
+            <p class="bio">
+                Because the procedure depends only on projections and distances, it generalizes to any
+                dimensionality and can be adapted to split multiple clusters, choose different PCA components
+                or custom directions, and apply variance- or density-based conditional splitting rules.
+            </p>
+        </section>
+
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

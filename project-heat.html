@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Heat Diffusion & Jacobi Relaxation</title>
+    <link rel="stylesheet" href="style.css">
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <canvas id="qft-background"></canvas>
+    <div class="container">
+        <section class="section">
+            <a href="index.html" class="inherit-link">&larr; Back to main site</a>
+            <h1>3D Heat Diffusion & Jacobi Relaxation</h1>
+
+            <p class="bio">
+                Physical setup: a \(10 \times 10 \times 10\) insulated 3D lattice with one hot voxel placed near the center.
+                Everything else starts at 0&nbsp;°C. Heat spreads by six-way conduction while the source is held at
+                200&nbsp;°C, producing a clear transient heat plume in the animation.
+            </p>
+
+            <p class="bio">
+                Math background: explicit finite-difference diffusion on a unit grid,
+                \( \partial_t T = \nabla^2 T \), which is stable for \( \Delta t < 1/6 \) in 3D.
+                The same discretization also acts as a Jacobi relaxation demo: splitting the
+                Laplacian system as \(A = D + L + U\) and updating
+                \(x^{k+1} = D^{-1}(b - (L+U)x^k)\) with over-relaxation.
+                I track convergence using the infinity norm of successive iterates.
+            </p>
+
+            <div class="project-hero">
+                <img src="assets/heat_diffusion.gif" alt="3D heat diffusion animation">
+            </div>
+
+            <p class="bio">
+                This model serves as a clean benchmark for Poisson and heat-equation solvers.
+            </p>
+        </section>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

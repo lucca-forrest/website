@@ -37,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fluid Particle Animation
     initFluidParticleAnimation();
 
+    // Image Fade Transition for Neuromorphic project
+    initImageFadeTransition();
+
     // Animated Logo Intro Trigger
     setTimeout(() => {
         document.body.classList.add('loaded');
@@ -400,3 +403,30 @@ function initFluidParticleAnimation() {
     animate();
 }
 
+function initImageFadeTransition() {
+    const neuroVisual = document.getElementById('neuro-visual');
+    if (!neuroVisual) return;
+
+    const images = neuroVisual.querySelectorAll('.fade-image');
+    if (images.length < 2) return;
+
+    let currentIndex = 0;
+
+    // Ensure first image is visible
+    images[0].classList.add('active');
+
+    setInterval(() => {
+        const nextIndex = (currentIndex + 1) % images.length;
+
+        // Add active class to next image (starts fading in)
+        images[nextIndex].classList.add('active');
+
+        // After a brief moment, remove active from current (starts fading out)
+        // This creates a crossfade effect
+        setTimeout(() => {
+            images[currentIndex].classList.remove('active');
+            currentIndex = nextIndex;
+        }, 50); // Small delay to ensure both transitions happen
+
+    }, 5000); // Switch every 5 seconds
+}

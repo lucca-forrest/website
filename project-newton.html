@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multivariate Newton-Raphson Basins</title>
+    <link rel="stylesheet" href="style.css">
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <canvas id="qft-background"></canvas>
+    <div class="container">
+        <section class="section">
+            <a href="index.html" class="inherit-link">&larr; Back to main site</a>
+            <h1>Multivariate Newton-Raphson Basins</h1>
+
+            <p class="bio">
+                Physical system: trajectories in the \((x,y)\) plane as a two-variable nonlinear system relaxes toward
+                its roots. Starting seeds are scattered around the domain so each basin funnels a different path down to
+                a shared surface.
+            </p>
+
+            <p class="bio">
+                Math: Newton updates \(x_{k+1} = x_k - J^{-1}(x_k)F(x_k)\) for
+                \(F = [2x^3 - 6xy^2 - 1,\; 6x^2y - 2y^3 + 3]\).
+                Inverting the Jacobian yields step directions; I halve the step for smoother motion and log
+                \( \lVert F \rVert_2 \) to build a convergence landscape. Cubic interpolation fills in trajectories for
+                the animation.
+            </p>
+            <p class="bio">
+                Why convergence wiggles: near-singular Jacobians flatten directions so steps overshoot; seeds that start
+                across basin boundaries bounce between attractors; and damping the step slows otherwise quadratic
+                convergence into a more linear crawl until the iterates get close to a root.
+            </p>
+
+            <div class="project-hero">
+                <img src="assets/newton-raphson.gif" alt="Newton-Raphson convergence animation">
+            </div>
+
+            <p class="bio">
+                Why it matters: basin structure tells you how sensitive a solver is to initialization; shallow valleys
+                and singular Jacobians flag where line searches or trust regions are needed before deploying Newton in
+                higher dimensions.
+            </p>
+        </section>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

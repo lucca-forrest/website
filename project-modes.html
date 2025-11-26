@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupled Spring Normal Modes</title>
+    <link rel="stylesheet" href="style.css">
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <canvas id="qft-background"></canvas>
+    <div class="container">
+        <section class="section">
+            <a href="index.html" class="inherit-link">&larr; Back to main site</a>
+            <h1>Coupled Spring Normal Modes</h1>
+
+            <p class="bio">
+                Physical setup: eight equal masses connected by springs along a fixed rail. 
+                Displacements stay small, so each mass oscillates around equilibrium while forces 
+                travel down the chain, forming standing-wave patterns across the system.
+            </p>
+
+            <p class="bio">
+                Math background: assembling the stiffness–mass matrix \(A\) with 
+                \(A_{ii} = (k_i + k_{i+1})/m_i\) and 
+                \(A_{i,i\pm1} = -k_{i\pm1}/m_i\) reduces the equations of motion to the eigenproblem 
+                \(A q = \omega^2 q\).  
+                Eigenvalues give squared frequencies, eigenvectors give mode shapes, and each mode is 
+                animated as \(q \sin(\omega t)\) to show phase and relative amplitude.
+            </p>
+
+            <div class="project-hero">
+                <img src="assets/spring_modes.gif" alt="Normal modes animation">
+            </div>
+
+            <p class="bio">
+                Normal modes dictate how real structures vibrate, where nodes form, and how energy distributes across a system.
+            </p>
+        </section>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
